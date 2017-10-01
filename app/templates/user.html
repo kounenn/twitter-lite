@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+
+{% block title %}Twitter Lite {{ user.username }}{% endblock %}
+
+{% block page_content %}
+<div class="page_content">
+    <div class="profile-header">
+        <h1>{{ user.username }}</h1>
+        <p>
+            {% if user.name %}{{ user.name }}<br>{% endif %}
+            {{ user.email }}
+            {% if user.location %}{{ user.location }}<br>{% endif %}
+        </p>
+        {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
+        <p>{{ posts_list.count() }} posts.</p>
+        <p>
+            {% if not current_user == user %}
+            {% if current_user|is_following(user) %}
+            <a href="{{ url_for('main.unfollow',username=user.username) }}" class="btn btn-primary">-Unfollow</a>
+            {% else %}
+            <a href="{{ url_for('main.follow',username=user.username )}}" class="btn btn-default">+Follow</a>
+            {% endif %}
+            {% endif %}
+            <a href="{{ url_for('main.followers', username=user.username) }}">Followers: <span class="badge">{{ user.followers().count() }}</span></a>
+            <a href="{{ url_for('main.following', username=user.username) }}">Following: <span class="badge">{{ user.following().count() }}</span></a>
+            {% if user|is_following(current_user) %}
+            | <span class="label label-default">Follows you</span>
+            {% endif %}
+        </p>
+        <p>
+            {% if user == current_user %}
+            <a class="btn btn-default" href="{{ url_for('main.edit_profile') }}">Edit profile</a>
+            {% endif %}
+        </p>
+
+    </div>
+</div>
+<h3>Posts by {{ user.username }}</h3>
+{% include '_posts.html' %}
+{% endblock %}

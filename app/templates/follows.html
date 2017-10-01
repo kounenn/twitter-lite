@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+
+{% block title %}Twitter Lite - {{ title }} {{ user.username }}{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>{{ title }} {{ user.username }}</h1>
+</div>
+<table class="table table-hover followers">
+    <thead>
+    <tr>
+        <th>User</th>
+    </tr>
+    </thead>
+    {% for follow in follows_list %}
+    {% if follow != user %}
+    <tr>
+        <td>
+            <a href="{{ url_for('.user_detail', username = follow.username) }}">
+                {{ follow.username }}
+            </a>
+        </td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+</table>
+<div class="pagination">
+    {{ macros.pagination_widget(page,pagination, endpoint, username = user.username) }}
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% macro pagination_widget(page,pagination,endpoint) %}
+<div class="text-center">
+    <ul class="pagination">
+        <li
+        {% if page==1 %} class="disabled"{% endif %}>
+        <a href="{% if page >1 %}{{ url_for(endpoint) }}?page={{ page-1 }}{% else %}#{% endif %}">
+            &laquo;
+        </a>
+        </li>
+        <li class="active">
+            <a href="{{ url_for(endpoint, page=page, **kwargs) }}{{ fragment }}">{{ page }}</a>
+        </li>
+        <li
+        {% if page==pagination.get_page_count() %} class="disabled"{% endif %}>
+        <a href="{% if page<pagination.get_page_count() %}{{ url_for(endpoint) }}?page={{ page+1 }}{% else %}#{% endif %}">
+            &raquo;
+        </a>
+        </li>
+    </ul>
+</div>
+{% endmacro %}

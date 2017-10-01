@@ -11,16 +11,19 @@ See requirements.txt
 ## Usage
 
     1. Install dependency
+    
     ```
-        pip install -r requirements.txt
+    pip install -r requirements.txt
     ```
 
     2. Create database
+    
     ```
-        python create_tables.py
+    python create_tables.py
     ```
 
     3. run app
+    
     ```
-        python mange.py
+    python mange.py
     ```

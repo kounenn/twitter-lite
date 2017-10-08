@@ -19,4 +19,6 @@ python create_tables.py
 
 # run app
 python mange.py
+
+# open 127.0.0.1:5000 in your browser
 ```
